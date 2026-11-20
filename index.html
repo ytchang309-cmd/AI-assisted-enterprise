@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>萬能科大企業管理系(所) OmniInsight AI 企業決策引擎 | AI 驅動全方位企業營運決策與數據洞察</title>
+  <meta name="description" content="萬能科技大學企業管理系(所) 智慧決策研發團隊打造之 OmniInsight AI 企業決策引擎。整合跨系統 ERP/CRM 即時串接、時序預測 AI 模型與金融級資安架構，平均提升企業 38% 營運效率。">
+  
+  <!-- Favicon / Logo -->
+  <link rel="icon" type="image/jpeg" href="logo.jpg">
+
+  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome 6.5.1 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Chart.js 4.4 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tailwind Custom Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#080D1A',       // 最深太空黑
+              navy: '#0B132B',       // 深海軍藍
+              slate: '#1C2541',      // 次級深板岩藍
+              card: '#131D38',       // 卡片背景色
+              cyan: '#00F2FE',       // 極光青藍
+              cyanHover: '#06B6D4',
+              blue: '#2563EB',       // 科技湛藍
+              amber: '#F59E0B',      // 亮點琥珀橘
+              emerald: '#10B981',    // 成長率翡翠綠
+              grayText: '#94A3B8'    // 科技次要字體色
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif'],
+            display: ['"Plus Jakarta Sans"', '"Noto Sans TC"', 'sans-serif']
+          },
+          boxShadow: {
+            'glow-cyan': '0 0 25px -5px rgba(0, 242, 254, 0.3)',
+            'glow-blue': '0 0 30px -5px rgba(37, 99, 235, 0.35)',
+            'card-glass': '0 10px 30px -10px rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar for Enterprise Dark Style */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080D1A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1C2541;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00F2FE;
+    }
+
+    /* Glassmorphism Classes */
+    .glass-nav {
+      background: rgba(11, 19, 43, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-panel {
+      background: rgba(19, 29, 56, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-panel-hover:hover {
+      border-color: rgba(0, 242, 254, 0.4);
+      box-shadow: 0 0 25px -5px rgba(0, 242, 254, 0.18);
+    }
+
+    /* Subtle grid background */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    @keyframes pulseSoft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .pulse-soft {
+      animation: pulseSoft 2.5s infinite ease-in-out;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-dark text-slate-100 font-sans antialiased selection:bg-brand-cyan selection:text-brand-dark min-h-screen flex flex-col bg-grid-pattern">
+
+  <!-- ==================== 0. TOP ENTERPRISE BANNER ==================== -->
+  <div class="bg-gradient-to-r from-brand-slate via-brand-navy to-brand-slate border-b border-white/5 py-2 px-4 text-xs font-medium">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2 mx-auto sm:mx-0">
+        <span class="inline-flex items-center justify-center bg-cyan-500/20 text-brand-cyan border border-brand-cyan/30 text-[10px] font-bold px-2 py-0.5 rounded-full">
+          產學研發亮點
+        </span>
+        <span class="text-slate-300">
+          🎓 萬能科技大學 企業管理系(所) 智慧營運決策中心｜全系列 AI 決策模組開放企業 <strong class="text-brand-amber font-bold">14 天免費 POC 概念驗證</strong>
+        </span>
+      </div>
+      <div class="hidden sm:flex items-center gap-4 text-xs text-brand-grayText">
+        <span><i class="fa-solid fa-cloud text-brand-cyan mr-1"></i> Firebase Real-time Cloud 雲端直連</span>
+        <span><i class="fa-solid fa-shield-halved text-brand-cyan mr-1"></i> ISO 27001 / SOC 2 雙重認證</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 1. NAVBAR (置頂導覽列 - 串接 Firebase 登入狀態) ==================== -->
+  <header class="sticky top-0 z-40 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Brand Logo & Name (Using Uploaded Logo Photo) -->
+        <a href="#" class="flex items-center gap-3.5 group">
+          <div class="relative w-12 h-12 rounded-full p-0.5 bg-gradient-to-br from-brand-cyan via-white to-brand-blue shadow-glow-cyan shrink-0 transform group-hover:scale-105 transition-transform duration-200">
+            <img 
+              src="logo.jpg" 
+              alt="萬能科大企業管理系(所) 系徽 Logo" 
+              class="w-full h-full object-contain rounded-full bg-white"
+              onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=100&h=100&fit=crop&q=80';"
+            >
+          </div>
+          
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-lg sm:text-xl font-black tracking-tight text-white font-display">萬能科大企管系(所)</span>
+              <span class="text-[11px] font-extrabold tracking-wider text-brand-cyan bg-cyan-950/80 border border-brand-cyan/30 px-2 py-0.5 rounded-md uppercase">OmniInsight AI</span>
+            </div>
+            <p class="text-[11px] text-brand-grayText tracking-wide">AI 驅動企業營運決策引擎 · 智慧管理實驗室</p>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8 text-[14px] font-semibold text-slate-300">
+          <a href="#pillars" class="hover:text-brand-cyan transition-colors py-1 relative group">
+            核心價值
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan transition-all duration-200 group-hover:w-full"></span>
+          </a>
+          <a href="#modules" class="hover:text-brand-cyan transition-colors py-1 relative group">
+            AI 分析模組
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan transition-all duration-200 group-hover:w-full"></span>
+          </a>
+          <a href="#consultation" class="hover:text-brand-cyan transition-colors py-1 relative group">
+            專家顧問預約
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan transition-all duration-200 group-hover:w-full"></span>
+          </a>
+          <a href="#testimonials" class="hover:text-brand-cyan transition-colors py-1 relative group">
+            客戶見證
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-cyan transition-all duration-200 group-hover:w-full"></span>
+          </a>
+        </nav>
+
+        <!-- Right Action Icons: Solution Drawer & Enterprise Auth -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          
+          <!-- Solutions / Quotation Drawer Icon Button with Badge -->
+          <button id="drawerToggleBtn" type="button" aria-label="打開方案詢價單" class="relative p-2.5 rounded-xl bg-white/5 border border-white/10 text-slate-200 hover:text-brand-cyan hover:border-brand-cyan/40 hover:bg-white/10 transition-all duration-150 focus:outline-none">
+            <i class="fa-solid fa-layer-group text-lg"></i>
+            <span id="drawerCountBadge" class="absolute -top-1.5 -right-1.5 bg-brand-cyan text-brand-dark text-[11px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center shadow-glow-cyan transform scale-100 transition-transform">0</span>
+          </button>
+
+          <!-- Enterprise Auth State Container (Firebase Auth Driven) -->
+          <div id="authContainer" class="relative">
+            <!-- Guest Button (shown when logged out) -->
+            <button id="authModalBtn" onclick="window.toggleAuthModal(true)" type="button" class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-xs sm:text-sm hover:brightness-110 active:scale-95 transition-all duration-200 shadow-glow-cyan">
+              <i class="fa-solid fa-building-user text-sm"></i>
+              <span id="authBtnText">會員登入 / 註冊</span>
+            </button>
+
+            <!-- User Pill Button (Shown when logged in) -->
+            <button id="userPillBtn" type="button" class="hidden flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-brand-navy border border-brand-cyan/40 hover:border-brand-cyan transition-all shadow-glow-cyan text-left">
+              <img id="userAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&fit=crop&q=80" alt="會員大頭貼" class="w-8 h-8 rounded-full object-cover border border-brand-cyan">
+              <div class="hidden sm:block text-left pr-1">
+                <span id="userDisplayName" class="text-xs font-black text-white block max-w-[120px] truncate leading-tight">企業會員</span>
+                <span id="userRoleBadge" class="text-[10px] text-brand-cyan block leading-tight">Cloud CRM 認證</span>
+              </div>
+              <i class="fa-solid fa-chevron-down text-[10px] text-slate-400"></i>
+            </button>
+
+            <!-- User Dropdown (Shown when logged in and clicked) -->
+            <div id="userDropdown" class="hidden absolute right-0 mt-2 w-64 bg-brand-navy rounded-2xl shadow-card-glass border border-white/10 py-3 z-50">
+              <div class="px-4 py-2.5 border-b border-white/10">
+                <p id="userDropdownName" class="text-sm font-bold text-white truncate">企業決策長</p>
+                <p id="userDropdownEmail" class="text-xs text-brand-grayText truncate">user@company.com</p>
+                <span class="inline-block mt-1 text-[10px] text-brand-cyan bg-cyan-950/70 border border-brand-cyan/30 px-2 py-0.5 rounded">
+                  <i class="fa-solid fa-database mr-1"></i>Firestore CRM 同步中
+                </span>
+              </div>
+              <a href="#consultation" class="block px-4 py-2.5 text-xs text-slate-300 hover:bg-white/5 hover:text-brand-cyan transition-colors">
+                <i class="fa-solid fa-calendar-check mr-2 text-brand-cyan"></i>預約顧問排程
+              </a>
+              <button onclick="window.firebaseSignOut()" type="button" class="w-full text-left px-4 py-2.5 text-xs text-rose-400 hover:bg-white/5 transition-colors flex items-center">
+                <i class="fa-solid fa-arrow-right-from-bracket mr-2"></i>登出帳號 (Sign Out)
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button id="mobileMenuBtn" type="button" class="md:hidden p-2 text-slate-200 hover:text-brand-cyan focus:outline-none" aria-label="切換選單">
+            <i class="fa-solid fa-bars-staggered text-2xl"></i>
+          </button>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/10 bg-brand-navy px-6 pt-4 pb-6 space-y-3">
+      <a href="#pillars" class="block py-2 text-sm font-semibold text-slate-200 hover:text-brand-cyan">核心價值</a>
+      <a href="#modules" class="block py-2 text-sm font-semibold text-slate-200 hover:text-brand-cyan">AI 分析模組</a>
+      <a href="#consultation" class="block py-2 text-sm font-semibold text-slate-200 hover:text-brand-cyan">專家顧問預約</a>
+      <a href="#testimonials" class="block py-2 text-sm font-semibold text-slate-200 hover:text-brand-cyan">客戶見證</a>
+      <div class="pt-2 border-t border-white/10 text-xs text-brand-grayText">
+        萬能企管產學合作專線：(03) 451-5811 轉企管系
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    
+    <!-- ==================== 2. HERO SECTION (科技英雄區塊) ==================== -->
+    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-28">
+      
+      <!-- Ambient Aurora Glows -->
+      <div class="absolute -top-32 left-1/4 w-[600px] h-[600px] bg-brand-cyan/15 rounded-full blur-[120px] pointer-events-none"></div>
+      <div class="absolute top-1/3 -right-32 w-[500px] h-[500px] bg-brand-blue/20 rounded-full blur-[140px] pointer-events-none"></div>
+      
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left Text Content -->
+          <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-brand-cyan/30 text-brand-cyan text-xs sm:text-sm font-semibold tracking-wide">
+              <span class="w-2 h-2 rounded-full bg-brand-cyan animate-ping"></span>
+              <span>萬能科大企管系(所) 智慧營運團隊研發 · 次世代產學 AI 決策引擎</span>
+            </div>
+
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.2] font-display">
+              以數據洞悉先機，<br>
+              讓 AI 驅動企業營運<br>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-blue-400 to-indigo-300">
+                全面突破與降本增效
+              </span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-300 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              由萬能科大企業管理系(所) 智慧數據決策智庫跨界打造。整合 ERP、CRM 與財務封閉孤島，透過預測型 AI 模型將多源企業海量數據轉化為確信度極高的營運指令，助力產業降本增效、搶佔未來先機。
+            </p>
+
+            <!-- Dual CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              <button onclick="window.toggleAuthModal(true, 'register')" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-base shadow-glow-cyan hover:brightness-110 transform hover:-translate-y-0.5 transition-all duration-200">
+                <i class="fa-solid fa-wand-magic-sparkles text-brand-dark"></i>
+                <span>立即免費體驗 AI 診斷</span>
+              </button>
+              <a href="#consultation" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-white/5 border border-white/15 text-slate-200 font-bold text-base hover:bg-white/10 hover:border-brand-cyan/40 hover:text-brand-cyan transform hover:-translate-y-0.5 transition-all duration-200">
+                <i class="fa-solid fa-calendar-check text-brand-cyan"></i>
+                <span>預約專家 1 對 1 Demo</span>
+              </a>
+            </div>
+
+            <!-- Trust Bar / Key Metrics -->
+            <div class="pt-8 border-t border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left">
+              <div>
+                <p class="text-2xl sm:text-3xl font-black text-brand-cyan font-display">500+</p>
+                <p class="text-xs text-brand-grayText mt-1">中大型企業導入上線</p>
+              </div>
+              <div>
+                <p class="text-2xl sm:text-3xl font-black text-brand-emerald font-display">+38%</p>
+                <p class="text-xs text-brand-grayText mt-1">平均營運效率躍升</p>
+              </div>
+              <div>
+                <p class="text-2xl sm:text-3xl font-black text-brand-amber font-display">96.4%</p>
+                <p class="text-xs text-brand-grayText mt-1">預測模型綜合精準度</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Dynamic Dashboard Simulation -->
+          <div class="lg:col-span-5 relative">
+            <div class="glass-panel rounded-3xl p-6 shadow-2xl relative border border-white/10">
+              
+              <!-- Dashboard Window Header -->
+              <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                  <span class="text-xs font-semibold text-slate-300 ml-2">VNU-BA OmniInsight Live Telemetry</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="inline-flex items-center gap-1 text-[11px] font-bold text-brand-emerald bg-emerald-950/80 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    Firebase 即時雲端同步
+                  </span>
+                </div>
+              </div>
+
+              <!-- Top KPI Widgets -->
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="bg-brand-navy/80 p-3 rounded-xl border border-white/5">
+                  <span class="text-[11px] text-brand-grayText">次季預估營收 (Forecast)</span>
+                  <div class="flex items-baseline gap-2 mt-1">
+                    <span class="text-lg font-black text-white font-display">NT$ 1.84 億</span>
+                    <span class="text-xs font-bold text-brand-emerald">+24.6% ↑</span>
+                  </div>
+                </div>
+                <div class="bg-brand-navy/80 p-3 rounded-xl border border-white/5">
+                  <span class="text-[11px] text-brand-grayText">供應鏈庫存健康度</span>
+                  <div class="flex items-baseline gap-2 mt-1">
+                    <span class="text-lg font-black text-brand-cyan font-display">98.2 / 100</span>
+                    <span class="text-xs font-bold text-brand-cyan">優質</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Chart Canvas -->
+              <div class="relative h-48 w-full bg-brand-navy/50 p-2 rounded-xl border border-white/5">
+                <canvas id="heroDashboardChart"></canvas>
+              </div>
+
+              <!-- AI Copilot Insight Toast Inside Dashboard -->
+              <div class="mt-4 p-3 rounded-xl bg-gradient-to-r from-brand-slate to-brand-navy border border-brand-cyan/30 flex items-start gap-3">
+                <div class="w-7 h-7 rounded-lg bg-brand-cyan/20 text-brand-cyan flex items-center justify-center shrink-0 text-xs">
+                  <i class="fa-solid fa-sparkles"></i>
+                </div>
+                <div class="text-xs">
+                  <span class="font-bold text-brand-cyan">萬能企管 AI 洞察快訊：</span>
+                  <span class="text-slate-300">偵測到東南亞供應鏈物流延遲風險，模型已自動生成「動態替代備料方案」，預估為公司避免 NT$ 420 萬呆滯損失。</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ==================== 3. CORE PILLARS (核心技術承諾) ==================== -->
+    <section id="pillars" class="py-20 bg-brand-navy/50 relative border-y border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest text-brand-cyan uppercase bg-cyan-950/80 border border-brand-cyan/30 px-3 py-1 rounded-full mb-3">
+            <i class="fa-solid fa-microchip-ai"></i>
+            <span>Architecture & Trust</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight font-display">
+            三大企業級承諾，穩固數智化根基
+          </h2>
+          <p class="mt-4 text-brand-grayText text-base">
+            為嚴苛的跨國多架構企業環境而生。萬能企管產學研發兼具毫秒級即時算力、預測精準度與銀行級資安防護。
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Pillar 1 -->
+          <div class="glass-panel glass-panel-hover rounded-3xl p-8 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-brand-cyan/30 text-brand-cyan flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-glow-cyan">
+                <i class="fa-solid fa-network-wired"></i>
+              </div>
+              <div class="inline-block text-xs font-bold text-brand-cyan bg-cyan-950/60 px-2.5 py-1 rounded-md mb-3 border border-brand-cyan/20">承諾 01</div>
+              <h3 class="text-xl font-bold text-white mb-3">全流程即時數據整合</h3>
+              <p class="text-sm text-brand-grayText leading-relaxed">
+                零代碼直連 SAP、Oracle、Salesforce、鼎新與各類自建 SQL/NoSQL 數據庫。零延遲即時 ETL 自動清洗標準化，徹底終結企業部門間的資訊孤島。
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-xs font-semibold text-brand-cyan">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>原生支援 120+ 主流企業系統 API</span>
+            </div>
+          </div>
+
+          <!-- Pillar 2 -->
+          <div class="glass-panel glass-panel-hover rounded-3xl p-8 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-glow-blue">
+                <i class="fa-solid fa-brain-circuit"></i>
+              </div>
+              <div class="inline-block text-xs font-bold text-blue-400 bg-blue-950/60 px-2.5 py-1 rounded-md mb-3 border border-blue-500/20">承諾 02</div>
+              <h3 class="text-xl font-bold text-white mb-3">預測性營運 AI 模型</h3>
+              <p class="text-sm text-brand-grayText leading-relaxed">
+                不只回顧過去，更能看見未來。結合專利時序深度學習，自動模擬庫存安全水位、營收曲線波動與現金流黑洞，為管理層提供「具備行動指引」的決策建議。
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-xs font-semibold text-blue-400">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>96.4% 動態場景預測精準率</span>
+            </div>
+          </div>
+
+          <!-- Pillar 3 -->
+          <div class="glass-panel glass-panel-hover rounded-3xl p-8 transition-all duration-300 flex flex-col justify-between group">
+            <div>
+              <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-brand-amber flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
+                <i class="fa-solid fa-shield-quartered"></i>
+              </div>
+              <div class="inline-block text-xs font-bold text-brand-amber bg-amber-950/60 px-2.5 py-1 rounded-md mb-3 border border-amber-500/20">承諾 03</div>
+              <h3 class="text-xl font-bold text-white mb-3">企業級資安與彈性部署</h3>
+              <p class="text-sm text-brand-grayText leading-relaxed">
+                全通道採用 AES-256 與 TLS 1.3 金融級加密。支援公有雲 (AWS/GCP/Azure)、企業專屬私有雲或是完全實體隔離的地端 (On-Premise) 容器化部署。
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-xs font-semibold text-brand-amber">
+              <i class="fa-solid fa-circle-check"></i>
+              <span>符合 SOC 2、ISO 27001 與 GDPR</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== 4. AI SOLUTIONS & MODULES (AI 模組商城) ==================== -->
+    <section id="modules" class="py-20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest text-brand-cyan uppercase bg-cyan-950/80 border border-brand-cyan/30 px-3 py-1 rounded-full mb-3">
+              <i class="fa-solid fa-cubes-stacked"></i>
+              <span>Enterprise AI Modules</span>
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-black text-white font-display">
+              模組化企業 AI 營運分析方案
+            </h2>
+            <p class="mt-2 text-brand-grayText text-sm sm:text-base">
+              隨插即用、按需訂閱。依企業目前最具痛點之環節自由組合，靈活擴展。
+            </p>
+          </div>
+
+          <!-- Category Filter Bar -->
+          <div class="flex flex-wrap items-center gap-2" id="moduleFilterBar">
+            <button class="filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-cyan text-brand-dark transition-all shadow-glow-cyan" data-category="all">
+              全部方案
+            </button>
+            <button class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white/5 border border-white/10 text-slate-300 hover:text-brand-cyan hover:border-brand-cyan/40 transition-all" data-category="supply">
+              供應鏈與庫存
+            </button>
+            <button class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white/5 border border-white/10 text-slate-300 hover:text-brand-cyan hover:border-brand-cyan/40 transition-all" data-category="finance">
+              財務與營收
+            </button>
+            <button class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white/5 border border-white/10 text-slate-300 hover:text-brand-cyan hover:border-brand-cyan/40 transition-all" data-category="management">
+              組織與永續 ESG
+            </button>
+          </div>
+        </div>
+
+        <!-- Modules Grid -->
+        <div id="modulesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Injected via JavaScript -->
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== 5. CONSULTATION BOOKING (專家顧問預約 - 寫入 Firestore) ==================== -->
+    <section id="consultation" class="py-20 bg-brand-navy/60 relative border-t border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest text-brand-cyan uppercase bg-cyan-950/80 border border-brand-cyan/30 px-3 py-1 rounded-full mb-3">
+            <i class="fa-solid fa-user-tie"></i>
+            <span>Executive Advisory</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-black text-white font-display">
+            萬能企管產學專家 1 對 1 諮詢
+          </h2>
+          <p class="mt-3 text-brand-grayText text-base">
+            由萬能科技大學企管系教授群與業界資深架構師聯合駐診，送出後即時寫入 Firebase 雲端排程。
+          </p>
+        </div>
+
+        <!-- 3 Packages Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          
+          <!-- Package 1 -->
+          <div class="glass-panel rounded-3xl p-6 flex flex-col justify-between hover:border-brand-cyan/40 transition-all">
+            <div>
+              <div class="flex justify-between items-start mb-4">
+                <span class="text-xs font-bold text-brand-cyan bg-cyan-950/70 border border-brand-cyan/30 px-3 py-1 rounded-full">診斷初探</span>
+                <span class="text-lg font-black text-emerald-400">限時免費</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2">企業營運體質 AI 健檢</h3>
+              <p class="text-xs text-brand-grayText mb-4">45 分鐘高階線上會診，快速找出 3 大營運浪費點。</p>
+              <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 現有 ERP/CRM 數據資產成熟度盤點</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 潛在自動化 ROI 效益試算預估報告</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 萬能企管產學顧問群視訊指導</li>
+              </ul>
+            </div>
+            <button type="button" onclick="window.selectConsultationPlan('企業營運體質 AI 健檢 (免費 45 分鐘)')" class="w-full py-2.5 rounded-xl border border-brand-cyan text-brand-cyan font-bold text-xs hover:bg-brand-cyan hover:text-brand-dark transition-colors">
+              選擇此方案並填單
+            </button>
+          </div>
+
+          <!-- Package 2 (Featured) -->
+          <div class="glass-panel rounded-3xl p-6 border-2 border-brand-cyan/60 relative flex flex-col justify-between shadow-glow-cyan">
+            <div class="absolute -top-3.5 right-6 bg-brand-cyan text-brand-dark text-[11px] font-extrabold px-3 py-0.5 rounded-full shadow-md">
+              ⭐ 企業首選推薦
+            </div>
+            <div>
+              <div class="flex justify-between items-start mb-4">
+                <span class="text-xs font-bold text-brand-cyan bg-cyan-950/70 border border-brand-cyan/30 px-3 py-1 rounded-full">落地敏捷</span>
+                <span class="text-lg font-black text-white">專案規劃</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2">POC 概念驗證深度評估</h3>
+              <p class="text-xs text-brand-grayText mb-4">以企業真實脫敏數據跑測，2 週內看見預測模型真實表現。</p>
+              <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 提供單一業務場景原型驗證 (POC)</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 專屬演算法工程師調優模型超參數</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 出具正式企業董事會級驗證成效白皮書</li>
+              </ul>
+            </div>
+            <button type="button" onclick="window.selectConsultationPlan('POC 概念驗證深度評估 (2 週敏捷試跑)')" class="w-full py-2.5 rounded-xl bg-brand-cyan text-brand-dark font-extrabold text-xs hover:brightness-110 transition-colors shadow-glow-cyan">
+              選擇此方案並填單
+            </button>
+          </div>
+
+          <!-- Package 3 -->
+          <div class="glass-panel rounded-3xl p-6 flex flex-col justify-between hover:border-brand-cyan/40 transition-all">
+            <div>
+              <div class="flex justify-between items-start mb-4">
+                <span class="text-xs font-bold text-brand-cyan bg-cyan-950/70 border border-brand-cyan/30 px-3 py-1 rounded-full">頂級定製</span>
+                <span class="text-lg font-black text-white">高階架構</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2">跨系統數據倉儲架構規劃</h3>
+              <p class="text-xs text-brand-grayText mb-4">針對千人以上集團與多事業部跨國複雜環境定制。</p>
+              <ul class="text-xs text-slate-300 space-y-2 mb-6">
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 混合雲 / 地端私有雲拓撲規劃</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> 資料安全分級與權限隔離治理機制</li>
+                <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> SLA 99.99% 高可用架構設計諮詢</li>
+              </ul>
+            </div>
+            <button type="button" onclick="window.selectConsultationPlan('大型跨系統數據倉儲架構規劃 (專屬架構師)')" class="w-full py-2.5 rounded-xl border border-brand-cyan text-brand-cyan font-bold text-xs hover:bg-brand-cyan hover:text-brand-dark transition-colors">
+              選擇此方案並填單
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Consultation Booking Form -->
+        <div class="max-w-3xl mx-auto glass-panel rounded-3xl p-8 sm:p-10 border border-white/10 shadow-2xl">
+          
+          <div class="flex items-center gap-3 pb-6 mb-6 border-b border-white/10">
+            <div class="w-10 h-10 rounded-xl bg-brand-cyan/20 border border-brand-cyan/40 text-brand-cyan flex items-center justify-center">
+              <i class="fa-solid fa-headset text-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold text-white">預約專屬 AI 營運架構諮詢</h3>
+              <p class="text-xs text-brand-grayText">提交表單後將即時寫入 Firestore `appointments` 雲端集合，專屬顧問將於 4 工作小時內致電。</p>
+            </div>
+          </div>
+
+          <form id="consultationForm" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <!-- Company Name -->
+              <div>
+                <label for="cCompanyName" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                  企業完整名稱 <span class="text-rose-400">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-brand-grayText">
+                    <i class="fa-solid fa-building"></i>
+                  </span>
+                  <input type="text" id="cCompanyName" required placeholder="例如：宏碁精密智造股份有限公司" class="w-full pl-10 pr-4 py-3 bg-brand-dark/80 rounded-xl border border-white/15 focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan text-sm outline-none transition-all text-white">
+                </div>
+              </div>
+
+              <!-- Contact Name & Title -->
+              <div>
+                <label for="cContactName" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                  聯絡人姓名與職稱 <span class="text-rose-400">*</span>
+                </label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-brand-grayText">
+                    <i class="fa-regular fa-user"></i>
+                  </span>
+                  <input type="text" id="cContactName" required placeholder="例如：林大明 營運副總" class="w-full pl-10 pr-4 py-3 bg-brand-dark/80 rounded-xl border border-white/15 focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan text-sm outline-none transition-all text-white">
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <!-- Work Phone -->
+              <div>
+                <label for="cPhone" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                  公務電話 / 手機 <span class="text-rose-400">*</span>
+                </label>
+                <input type="tel" id="cPhone" required placeholder="02-8888-9999 #101" class="w-full px-4 py-3 bg-brand-dark/80 rounded-xl border border-white/15 focus:border-brand-cyan text-sm outline-none transition-all text-white">
+              </div>
+
+              <!-- Enterprise Size -->
+              <div>
+                <label for="cCompanySize" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                  企業現有規模 <span class="text-rose-400">*</span>
+                </label>
+                <select id="cCompanySize" required class="w-full px-4 py-3 bg-brand-dark rounded-xl border border-white/15 focus:border-brand-cyan text-sm outline-none transition-all text-white">
+                  <option value="50人以下">成長型企業 (50 人以下)</option>
+                  <option value="50-200人" selected>中型規模企業 (50 - 200 人)</option>
+                  <option value="200-1000人">大型企業集團 (200 - 1000 人)</option>
+                  <option value="1000人以上">跨國超大型企業 (1000 人以上)</option>
+                </select>
+              </div>
+
+              <!-- Service Plan -->
+              <div>
+                <label for="cPlan" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                  預約諮詢項目 <span class="text-rose-400">*</span>
+                </label>
+                <select id="cPlan" required class="w-full px-4 py-3 bg-brand-dark rounded-xl border border-white/15 focus:border-brand-cyan text-sm outline-none transition-all text-white">
+                  <option value="企業營運體質 AI 健檢 (免費 45 分鐘)">企業營運體質 AI 健檢 (免費)</option>
+                  <option value="POC 概念驗證深度評估 (2 週敏捷試跑)">POC 概念驗證深度評估</option>
+                  <option value="大型跨系統數據倉儲架構規劃 (專屬架構師)">大型跨系統數據倉儲架構規劃</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <!-- Expected Date -->
+              <div>
+                <label for="cDate" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                  期望諮詢日期 <span class="text-rose-400">*</span>
+                </label>
+                <input type="date" id="cDate" required class="w-full px-4 py-3 bg-brand-dark rounded-xl border border-white/15 focus:border-brand-cyan text-sm outline-none transition-all text-white">
+              </div>
+
+              <!-- Time Slot -->
+              <div>
+                <label for="cTimeSlot" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                  方便時段 <span class="text-rose-400">*</span>
+                </label>
+                <select id="cTimeSlot" required class="w-full px-4 py-3 bg-brand-dark rounded-xl border border-white/15 focus:border-brand-cyan text-sm outline-none transition-all text-white">
+                  <option value="上午 10:00 - 11:30">上午場次 10:00 - 11:30</option>
+                  <option value="下午 14:00 - 15:30">下午場次 14:00 - 15:30</option>
+                  <option value="傍晚 16:00 - 17:30">傍晚場次 16:00 - 17:30</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <div>
+              <label for="cNotes" class="block text-xs font-bold text-slate-300 uppercase mb-2">
+                目前主要營運挑戰或希望解決的痛點 (選填)
+              </label>
+              <textarea id="cNotes" rows="3" placeholder="例如：目前 ERP 與 CRM 數據無法有效串接、庫存周轉率過低、人工產出營運月報耗費 2 週時間..." class="w-full px-4 py-3 bg-brand-dark/80 rounded-xl border border-white/15 focus:border-brand-cyan text-sm outline-none transition-all text-white resize-none"></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button id="consultationSubmitBtn" type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-base shadow-glow-cyan hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>送出顧問諮詢預約單 (即時寫入雲端)</span>
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ==================== 6. TESTIMONIALS (客戶成功案例) ==================== -->
+    <section id="testimonials" class="py-20 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-2xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-1.5 text-xs font-bold tracking-widest text-brand-cyan uppercase bg-cyan-950/80 border border-brand-cyan/30 px-3 py-1 rounded-full mb-3">
+            <i class="fa-solid fa-badge-check"></i>
+            <span>Success Stories</span>
+          </div>
+          <h2 class="text-3xl font-black text-white font-display">指標企業領袖共同見證</h2>
+          <p class="mt-2 text-brand-grayText text-sm">深耕精密製造、跨國零售與金融科技之實戰成效</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          <!-- Testimonial 1 -->
+          <div class="glass-panel p-7 rounded-3xl border border-white/10 space-y-4">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              「導入萬能企管所團隊研發的供應鏈預測模型後，我們的庫存呆滯率直接下降了 42%，採購備料預測提前了 3 週完成，真正實現數據驅動的精準生產。」
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+              <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-brand-cyan flex items-center justify-center font-bold">
+                黃
+              </div>
+              <div>
+                <p class="text-xs font-bold text-white">黃振華 營運長 (COO)</p>
+                <p class="text-[11px] text-brand-grayText">台灣精密光學製造集團 (萬能傑出校友企業)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="glass-panel p-7 rounded-3xl border border-white/10 space-y-4">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              「過去每個月跨國財務核銷需要動員 8 名資深會計整整一週，OmniInsight AI 的財務異常偵測模型讓對帳流程在 2 小時內全自動完成，準確率更高達 99.8%。」
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+              <div class="w-10 h-10 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">
+                陳
+              </div>
+              <div>
+                <p class="text-xs font-bold text-white">陳怡安 財務長 (CFO)</p>
+                <p class="text-[11px] text-brand-grayText">泛太平洋跨境電商控股</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="glass-panel p-7 rounded-3xl border border-white/10 space-y-4">
+            <div class="flex items-center gap-1 text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              「AI 決策 Copilot 徹底重塑了高階主管會議！現在會議中任何假設與情境模擬，AI 都能在 30 秒內產出情境推演與現金流衝擊評估，效率不可思議。」
+            </p>
+            <div class="flex items-center gap-3 pt-4 border-t border-white/10">
+              <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                趙
+              </div>
+              <div>
+                <p class="text-xs font-bold text-white">趙銘德 數位轉型總監 (CDO)</p>
+                <p class="text-[11px] text-brand-grayText">大型連鎖零售智慧通路</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ==================== 7. FOOTER (萬能企管產學研發總部頁尾) ==================== -->
+  <footer class="bg-brand-navy border-t border-white/10 pt-16 pb-12 text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+        
+        <!-- Brand Info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full p-0.5 bg-white shrink-0 shadow-sm">
+              <img src="logo.jpg" alt="系徽 Logo" class="w-full h-full object-contain rounded-full">
+            </div>
+            <div>
+              <span class="text-base font-black text-white font-display block leading-tight">萬能科大企業管理系(所)</span>
+              <span class="text-xs text-brand-cyan font-bold tracking-wider">OmniInsight AI 決策引擎</span>
+            </div>
+          </div>
+          <p class="text-xs text-brand-grayText leading-relaxed">
+            結合萬能企管系(所) 深厚企業管理智庫與前瞻 AI 算力，致力於賦能產業數位轉型。全系列資料即時存取自 Google Firebase 雲端高可用架構。
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-cyan hover:text-brand-dark flex items-center justify-center text-slate-300 transition-colors" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin-in text-xs"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-cyan hover:text-brand-dark flex items-center justify-center text-slate-300 transition-colors" aria-label="GitHub">
+              <i class="fa-brands fa-github text-xs"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-cyan hover:text-brand-dark flex items-center justify-center text-slate-300 transition-colors" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f text-xs"></i>
+            </a>
+            <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-brand-cyan hover:text-brand-dark flex items-center justify-center text-slate-300 transition-colors" aria-label="YouTube">
+              <i class="fa-brands fa-youtube text-xs"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Headquarters -->
+        <div class="space-y-3 text-xs">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">產學研發總部資訊</h4>
+          <ul class="space-y-2.5">
+            <li class="flex items-start gap-2.5">
+              <i class="fa-solid fa-location-dot mt-0.5 text-brand-cyan"></i>
+              <span>32061 桃園市中壢區萬能路 1 號 (萬能科技大學 經管大樓 6 樓 智慧營運決策實驗室)</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-phone text-brand-cyan"></i>
+              <span>產學專線：(03) 451-5811 轉 企管系所辦公室</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <i class="fa-solid fa-envelope text-brand-cyan"></i>
+              <span>公務信箱：ba-omni@vnu.edu.tw</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- System & Security -->
+        <div class="space-y-3 text-xs">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">安全與系統營運</h4>
+          <ul class="space-y-2">
+            <li class="flex justify-between pb-1 border-b border-white/5">
+              <span>Firebase 雲端狀態：</span>
+              <span class="text-brand-emerald font-bold">🟢 已連線即時儲存</span>
+            </li>
+            <li class="flex justify-between pb-1 border-b border-white/5">
+              <span>資料加密標準：</span>
+              <span class="text-white font-medium">AES-256 / TLS 1.3</span>
+            </li>
+            <li class="flex justify-between">
+              <span>企業私有化部署：</span>
+              <span class="text-white font-medium">K8s / Air-gapped 支持</span>
+            </li>
+          </ul>
+          <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-[11px] text-slate-300">
+            🔒 全系列 AI 訓練模型遵循零資料外洩原則，客戶數據絕不參與外部公開大模型訓練。
+          </div>
+        </div>
+
+        <!-- Governance & Whitepapers -->
+        <div class="space-y-3 text-xs">
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider">技術資源與規章</h4>
+          <ul class="space-y-2 text-slate-300">
+            <li><a href="#" class="hover:text-brand-cyan transition-colors">下載 2026 企業 AI 資安白皮書</a></li>
+            <li><a href="#" class="hover:text-brand-cyan transition-colors">SOC 2 Type II 合規稽核證明</a></li>
+            <li><a href="#" class="hover:text-brand-cyan transition-colors">API 開發者文件與 SDK (Python / Go)</a></li>
+            <li><a href="#" class="hover:text-brand-cyan transition-colors">產學合作契約與資料保密協議 (NDA)</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright -->
+      <div class="pt-8 border-t border-white/10 text-center text-xs text-brand-grayText flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p>© 2026 萬能科技大學 企業管理系(所) OmniInsight AI 研發團隊. All rights reserved.</p>
+        <p class="text-[11px]">Department of Business Administration, Vanung University.</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ==================== 8. SOLUTIONS & QUOTE DRAWER (方案詢價側邊欄 - 寫入 Firestore) ==================== -->
+  <div id="drawerBackdrop" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity duration-300 opacity-0"></div>
+
+  <aside id="solutionsDrawer" class="fixed top-0 right-0 bottom-0 w-full sm:w-[500px] bg-brand-navy z-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out border-l border-white/10">
+    
+    <!-- Drawer Header -->
+    <div class="p-6 border-b border-white/10 flex items-center justify-between bg-brand-slate/40">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-brand-cyan/20 border border-brand-cyan/40 text-brand-cyan flex items-center justify-center">
+          <i class="fa-solid fa-layer-group text-sm"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">企業 AI 模組評估清單</h3>
+          <p id="drawerItemCountText" class="text-xs text-brand-grayText">已選 0 項核心分析模組</p>
+        </div>
+      </div>
+      <button id="closeDrawerBtn" type="button" class="w-9 h-9 rounded-full hover:bg-white/10 text-slate-300 flex items-center justify-center transition-colors">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+    </div>
+
+    <!-- Billing Cycle Switcher (Monthly vs Annual 85% discount) -->
+    <div class="bg-brand-slate/70 px-6 py-3 border-b border-white/10 flex items-center justify-between text-xs">
+      <span class="text-slate-300 font-semibold">計費週期切換：</span>
+      <div class="inline-flex items-center bg-brand-dark p-1 rounded-xl border border-white/10">
+        <button type="button" id="billingMonthlyBtn" onclick="window.setBillingCycle('monthly')" class="px-3 py-1 rounded-lg font-bold text-xs bg-brand-cyan text-brand-dark transition-all">
+          月繳方案
+        </button>
+        <button type="button" id="billingAnnualBtn" onclick="window.setBillingCycle('annual')" class="px-3 py-1 rounded-lg font-bold text-xs text-slate-300 hover:text-white transition-all">
+          年繳 (享 85 折優惠)
+        </button>
+      </div>
+    </div>
+
+    <!-- Items List Area -->
+    <div id="drawerItemsList" class="flex-grow overflow-y-auto p-6 space-y-4">
+      <!-- Injected by JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="drawerEmptyState" class="hidden flex-grow flex flex-col items-center justify-center p-8 text-center">
+      <div class="w-20 h-20 rounded-full bg-white/5 border border-white/10 text-brand-grayText flex items-center justify-center text-3xl mb-4">
+        <i class="fa-solid fa-cubes"></i>
+      </div>
+      <h4 class="text-base font-bold text-white mb-1">評估清單尚無選購模組</h4>
+      <p class="text-xs text-brand-grayText mb-6">歡迎在 AI 分析模組區塊挑選符合您企業需求的演算方案！</p>
+      <a href="#modules" onclick="window.toggleDrawer(false)" class="px-6 py-2.5 rounded-xl bg-brand-cyan text-brand-dark text-xs font-bold hover:brightness-110 transition-all">
+        瀏覽推薦營運模組
+      </a>
+    </div>
+
+    <!-- Quote Request Form Container (Expanded on demand) -->
+    <div id="quoteFormContainer" class="hidden border-t border-white/10 bg-brand-dark/95 p-6 overflow-y-auto max-h-[55vh]">
+      <div class="flex items-center justify-between mb-4">
+        <h4 class="text-sm font-bold text-white flex items-center gap-2">
+          <i class="fa-solid fa-file-contract text-brand-cyan"></i> 填寫企業正式訂單與報價資料
+        </h4>
+        <button type="button" onclick="window.toggleQuoteFormView(false)" class="text-xs text-brand-cyan hover:underline">
+          返回模組清單
+        </button>
+      </div>
+
+      <form id="quoteSubmitForm" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">公司全稱 <span class="text-rose-400">*</span></label>
+          <input type="text" id="qCompanyName" required placeholder="例如：台曜智造股份有限公司" class="w-full px-3 py-2 bg-brand-navy rounded-lg border border-white/15 outline-none focus:border-brand-cyan text-white">
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">統一編號 (統編) <span class="text-rose-400">*</span></label>
+          <input type="text" id="qTaxId" required placeholder="8 碼統一編號" maxlength="8" class="w-full px-3 py-2 bg-brand-navy rounded-lg border border-white/15 outline-none focus:border-brand-cyan text-white">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">聯絡人姓名 <span class="text-rose-400">*</span></label>
+            <input type="text" id="qContact" required placeholder="例：林大明" class="w-full px-3 py-2 bg-brand-navy rounded-lg border border-white/15 outline-none focus:border-brand-cyan text-white">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">公務信箱 (Work Email) <span class="text-rose-400">*</span></label>
+            <input type="email" id="qEmail" required placeholder="name@company.com" class="w-full px-3 py-2 bg-brand-navy rounded-lg border border-white/15 outline-none focus:border-brand-cyan text-white">
+          </div>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">預計導入時程 <span class="text-rose-400">*</span></label>
+          <select id="qTimeline" class="w-full px-3 py-2 bg-brand-navy rounded-lg border border-white/15 outline-none focus:border-brand-cyan text-white">
+            <option value="1個月內 (急迫需求)">1 個月內 (急迫需求)</option>
+            <option value="1-3個月內 (本季專案)">1 - 3 個月內 (本季專案)</option>
+            <option value="3-6個月內 (下年度規劃)">3 - 6 個月內 (下年度規劃)</option>
+            <option value="先期技術評估與預算編列">先期技術評估與預算編列</option>
+          </select>
+        </div>
+        <div>
+          <label class="block font-bold text-slate-300 mb-1">特殊技術需求或備註</label>
+          <input type="text" id="qNotes" placeholder="例如：需支援本地私有雲部署、需串接舊版 SAP R3" class="w-full px-3 py-2 bg-brand-navy rounded-lg border border-white/15 outline-none focus:border-brand-cyan text-white">
+        </div>
+
+        <button id="orderSubmitBtn" type="submit" class="w-full py-3.5 mt-2 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-sm shadow-glow-cyan hover:brightness-110 transition-all flex items-center justify-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span>確認送出訂單 (即時寫入雲端 Firestore)</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Drawer Footer (Pricing & CTA) -->
+    <div id="drawerFooterSummary" class="p-6 border-t border-white/10 bg-brand-slate/40 space-y-3">
+      <div class="space-y-1.5 text-xs text-slate-300">
+        <div class="flex justify-between">
+          <span class="text-brand-grayText">模組原廠授權小計</span>
+          <span id="drawerSubtotal" class="font-bold text-white">NT$ 0</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-brand-grayText">計費週期優惠</span>
+          <span id="drawerDiscountText" class="font-semibold text-brand-emerald">標準月繳</span>
+        </div>
+        <div class="flex justify-between text-base font-extrabold text-white pt-2 border-t border-white/10">
+          <span>預估授權總額</span>
+          <span id="drawerTotal" class="text-xl text-brand-cyan font-display">NT$ 0</span>
+        </div>
+      </div>
+
+      <button id="toQuoteFormBtn" type="button" onclick="window.toggleQuoteFormView(true)" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-sm shadow-glow-cyan hover:brightness-110 transition-all flex items-center justify-center gap-2">
+        <span>前往線上結帳 / 索取報價單</span>
+        <i class="fa-solid fa-arrow-right text-xs"></i>
+      </button>
+    </div>
+
+  </aside>
+
+
+  <!-- ==================== 9. ENTERPRISE AUTH MODAL (Google 快速登入 + Email 註冊/登入 CRM) ==================== -->
+  <div id="authModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div id="authBackdrop" onclick="window.toggleAuthModal(false)" class="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity duration-300"></div>
+
+    <div class="relative w-full max-w-md bg-brand-navy rounded-3xl shadow-2xl border border-white/15 overflow-hidden z-10 animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Modal Header -->
+      <div class="p-6 pb-4 bg-brand-slate/50 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-cyan to-brand-blue flex items-center justify-center text-brand-dark font-bold">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">萬能企管 OmniInsight 會員中心</h3>
+            <p class="text-[11px] text-brand-grayText">Firebase Auth 雲端資安驗證 · Firestore CRM 建檔</p>
+          </div>
+        </div>
+        <button onclick="window.toggleAuthModal(false)" type="button" class="w-8 h-8 rounded-full hover:bg-white/10 text-slate-300 flex items-center justify-center transition-colors">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Error / Notification Banner Inside Modal -->
+      <div id="authAlertBanner" class="hidden mx-6 mt-4 p-3 rounded-xl bg-rose-950/80 border border-rose-500/40 text-xs text-rose-200 flex items-start gap-2">
+        <i class="fa-solid fa-circle-exclamation text-rose-400 mt-0.5 shrink-0"></i>
+        <span id="authAlertText">發生錯誤，請稍後重試。</span>
+      </div>
+
+      <!-- Top Primary Action: Prominent Google Sign-In Button -->
+      <div class="px-6 pt-5">
+        <button 
+          id="googleLoginBtn" 
+          type="button" 
+          onclick="window.handleGoogleSignIn()"
+          class="w-full py-3 px-4 bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs sm:text-sm rounded-xl shadow-lg border border-slate-200 flex items-center justify-center gap-3 transition-all transform active:scale-95 group"
+        >
+          <!-- Official Google "G" Logo SVG -->
+          <svg class="w-5 h-5" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <span>以 Google 帳號快速登入 (一鍵彈窗)</span>
+        </button>
+
+        <div class="relative py-4 text-center">
+          <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-white/10"></div></div>
+          <span class="relative px-3 bg-brand-navy text-[11px] text-brand-grayText">或使用企業公務帳號 Email</span>
+        </div>
+      </div>
+
+      <!-- Auth Tabs: Login vs Register -->
+      <div class="flex border-b border-white/10 bg-brand-dark/50">
+        <button id="loginTabBtn" type="button" onclick="window.switchAuthTab('login')" class="flex-1 py-3 text-xs sm:text-sm font-bold border-b-2 border-brand-cyan text-brand-cyan bg-brand-navy transition-all">
+          會員登入
+        </button>
+        <button id="registerTabBtn" type="button" onclick="window.switchAuthTab('register')" class="flex-1 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white transition-all">
+          註冊新企業帳號
+        </button>
+      </div>
+
+      <!-- Tab 1: Enterprise Login Form -->
+      <div id="loginFormContainer" class="p-6 pt-4 space-y-4">
+        <form id="emailLoginForm" class="space-y-4 text-xs sm:text-sm">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1.5">電子郵件 (Email) <span class="text-rose-400">*</span></label>
+            <input type="email" id="loginEmail" required placeholder="decision.maker@company.com" class="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-white/15 focus:border-brand-cyan text-white outline-none">
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1.5">
+              <label class="font-bold text-slate-300">密碼 <span class="text-rose-400">*</span></label>
+              <a href="javascript:void(0)" onclick="window.showToast('若忘記密碼請聯繫萬能企管系產學合作系統管理員進行 SSO 密碼重置', 'info')" class="text-[11px] text-brand-cyan hover:underline">忘記密碼？</a>
+            </div>
+            <input type="password" id="loginPassword" required placeholder="••••••••••••" class="w-full px-4 py-2.5 rounded-xl bg-brand-dark border border-white/15 focus:border-brand-cyan text-white outline-none">
+          </div>
+          
+          <button id="loginSubmitBtn" type="submit" class="w-full py-3.5 mt-2 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-sm shadow-glow-cyan hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <span>登入帳號</span>
+          </button>
+        </form>
+
+        <div class="text-center pt-2">
+          <p class="text-[11px] text-slate-400">登入即自動串接 Firebase 雲端資料庫與使用者個人化紀錄。</p>
+        </div>
+      </div>
+
+      <!-- Tab 2: Register Form (14 Days Free Trial) -->
+      <div id="registerFormContainer" class="p-6 pt-4 space-y-3.5 text-xs sm:text-sm hidden">
+        <form id="emailRegisterForm" class="space-y-3.5">
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">所屬企業名稱 <span class="text-rose-400">*</span></label>
+            <input type="text" id="regCompany" required placeholder="例如：緯創新世代科技" class="w-full px-4 py-2 rounded-xl bg-brand-dark border border-white/15 focus:border-brand-cyan text-white outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">企業公務信箱 (Email) <span class="text-rose-400">*</span></label>
+            <input type="email" id="regEmail" required placeholder="username@company.com" class="w-full px-4 py-2 rounded-xl bg-brand-dark border border-white/15 focus:border-brand-cyan text-white outline-none">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-slate-300 mb-1">姓名 / 暱稱 <span class="text-rose-400">*</span></label>
+              <input type="text" id="regName" required placeholder="林經理" class="w-full px-3 py-2 rounded-xl bg-brand-dark border border-white/15 focus:border-brand-cyan text-white outline-none">
+            </div>
+            <div>
+              <label class="block font-bold text-slate-300 mb-1">職稱 / 部門 <span class="text-rose-400">*</span></label>
+              <input type="text" id="regTitle" required placeholder="營運規劃部協理" class="w-full px-3 py-2 rounded-xl bg-brand-dark border border-white/15 focus:border-brand-cyan text-white outline-none">
+            </div>
+          </div>
+          <div>
+            <label class="block font-bold text-slate-300 mb-1">設定密碼 (至少 6 碼) <span class="text-rose-400">*</span></label>
+            <input type="password" id="regPassword" required placeholder="••••••••••••" minlength="6" class="w-full px-4 py-2 rounded-xl bg-brand-dark border border-white/15 focus:border-brand-cyan text-white outline-none">
+          </div>
+
+          <button id="regSubmitBtn" type="submit" class="w-full py-3.5 mt-2 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-sm shadow-glow-cyan hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <span>註冊並寫入 Firestore CRM 資料庫</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ==================== 10. SUCCESS CONFIRMATION MODAL ==================== -->
+  <div id="successModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4">
+    <div class="fixed inset-0 bg-black/80 backdrop-blur-sm"></div>
+    <div class="relative w-full max-w-md bg-brand-navy rounded-3xl p-8 shadow-2xl text-center z-10 border border-brand-cyan/40">
+      <div id="successIconContainer" class="w-16 h-16 rounded-full bg-cyan-500/20 text-brand-cyan flex items-center justify-center text-3xl mx-auto mb-4 border border-brand-cyan/40 shadow-glow-cyan">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <h3 id="successTitle" class="text-xl font-bold text-white mb-2">訂購成功！我們將盡速為您出貨與安排</h3>
+      <p id="successSubtitle" class="text-xs text-brand-grayText leading-relaxed mb-6">
+        資料已成功寫入 Google Firebase 雲端資料庫。
+      </p>
+
+      <div id="successDetailsCard" class="bg-brand-slate/60 p-4 rounded-2xl text-left text-xs space-y-2 mb-6 border border-white/10">
+        <!-- Injected by JS -->
+      </div>
+
+      <button type="button" onclick="window.closeSuccessModal()" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-sm hover:brightness-110 transition-all">
+        了解，關閉視窗
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ==================== 11. TOAST NOTIFICATION CONTAINER ==================== -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+
+  <!-- ==================== FIREBASE 10 MODULAR SDK & BUSINESS LOGIC ==================== -->
+  <script type="module">
+    // Official Google Firebase Modular SDK Imports (Google gstatic CDN)
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { 
+      getAuth, 
+      signInWithPopup, 
+      GoogleAuthProvider, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      signOut, 
+      onAuthStateChanged,
+      updateProfile 
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { 
+      getFirestore, 
+      collection, 
+      addDoc, 
+      setDoc, 
+      doc, 
+      serverTimestamp 
+    } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    /* ----------------------------------------------------
+     * FIREBASE CONFIGURATION (Provided by User)
+     * ---------------------------------------------------- */
+    const firebaseConfig = {
+      apiKey: "AIzaSyBunh84eG8dR4TnhjUMPRWQIWw1JsN0sVI",
+      authDomain: "ai-assisted-enterprise.firebaseapp.com",
+      projectId: "ai-assisted-enterprise",
+      storageBucket: "ai-assisted-enterprise.firebasestorage.app",
+      messagingSenderId: "532463189854",
+      appId: "1:532463189854:web:156a123a800000ef0c19cf"
+    };
+
+    // Initialize Firebase Services
+    let app, auth, db;
+    try {
+      app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+      console.log("Firebase App & Firestore Initialized Successfully:", firebaseConfig.projectId);
+    } catch (e) {
+      console.error("Firebase init failed:", e);
+    }
+
+    /* ----------------------------------------------------
+     * 1. ENTERPRISE AI MODULES CATALOG
+     * ---------------------------------------------------- */
+    const MODULES = [
+      {
+        id: 'm1',
+        name: '供應鏈智慧庫存預測模型',
+        category: 'supply',
+        tag: '熱門企業首選',
+        tagColor: 'bg-cyan-950 text-brand-cyan border border-brand-cyan/30',
+        spec: '即時串接 ERP/WMS · 安全水位自動動態校正',
+        priceMonthly: 16800,
+        accuracy: '97.2%',
+        icon: 'fa-boxes-stacked',
+        desc: '結合專利時序深度學習模型，精準預測原材料與成品消耗速度，自動消除高達 40% 的非必要安全庫存積壓。'
+      },
+      {
+        id: 'm2',
+        name: '顧客流失預警與 LTV 增長引擎',
+        category: 'finance',
+        tag: '營收翻倍必備',
+        tagColor: 'bg-emerald-950 text-emerald-400 border border-emerald-500/30',
+        spec: '支援 Salesforce / HubSpot / 自建 CRM',
+        priceMonthly: 12500,
+        accuracy: '95.8%',
+        icon: 'fa-users-viewfinder',
+        desc: '在客戶流失前 30 天主動偵測使用行為異常，自動觸發挽留營銷工作流，延長客戶生命週期價值 (LTV)。'
+      },
+      {
+        id: 'm3',
+        name: '跨通路財務自動核銷與異常偵測',
+        category: 'finance',
+        tag: 'CFO 強力推薦',
+        tagColor: 'bg-amber-950 text-brand-amber border border-amber-500/30',
+        spec: 'OCR 票據辨識 · 金融合規自動化對帳',
+        priceMonthly: 9800,
+        accuracy: '99.4%',
+        icon: 'fa-scale-balanced',
+        desc: '跨銀行、支付通路與發票多源流水自動比對，秒級揪出重複報帳、洗錢洗單與發票異常，保障現金流健全。'
+      },
+      {
+        id: 'm4',
+        name: '人力資源績效與組織效能診斷',
+        category: 'management',
+        tag: '跨部門協作優化',
+        tagColor: 'bg-purple-950 text-purple-400 border border-purple-500/30',
+        spec: '匿名組織網絡分析 (ONA) · 離職傾向預警',
+        priceMonthly: 7900,
+        accuracy: '93.5%',
+        icon: 'fa-chart-network',
+        desc: '量化評估跨部門協作摩擦力與關鍵專案人資投入比，預防核心人才倦怠並優化關鍵專案排程績效。'
+      },
+      {
+        id: 'm5',
+        name: '企業 ESG 智慧碳盤查與減碳路徑',
+        category: 'management',
+        tag: 'ISO 14064 必備',
+        tagColor: 'bg-teal-950 text-teal-400 border border-teal-500/30',
+        spec: '範疇 1/2/3 係數庫匹配 · 減碳 ROI 模擬',
+        priceMonthly: 11000,
+        accuracy: '98.0%',
+        icon: 'fa-leaf-heart',
+        desc: '一鍵彙整廠區能耗、物流碳排與供應鏈碳足跡，自動產出符合國際標準之 ESG 揭露報表與最佳減碳路徑。'
+      },
+      {
+        id: 'm6',
+        name: '營運決策 AI Copilot 智能助手',
+        category: 'management',
+        tag: '高階決策專屬',
+        tagColor: 'bg-blue-950 text-blue-400 border border-blue-500/30',
+        spec: '支援自然語言多維 SQL 穿透 · 多情境壓力測試',
+        priceMonthly: 15000,
+        accuracy: '96.9%',
+        icon: 'fa-sparkles',
+        desc: 'CEO 與高階主管的最佳數據軍師。直接以口語提問「若下季原物料上漲 5%，毛利率如何？」，3 秒回傳情境推演。'
+      }
+    ];
+
+    /* ----------------------------------------------------
+     * 2. STATE MANAGEMENT
+     * ---------------------------------------------------- */
+    let selectedModules = [];
+    let billingCycle = 'monthly'; // 'monthly' or 'annual'
+    let currentFirebaseUser = null;
+
+    function loadLocalCart() {
+      try {
+        const saved = localStorage.getItem('omni_vnu_modules');
+        if (saved) selectedModules = JSON.parse(saved);
+      } catch (e) {
+        console.warn('Storage read error:', e);
+      }
+    }
+
+    function saveModules() {
+      try {
+        localStorage.setItem('omni_vnu_modules', JSON.stringify(selectedModules));
+      } catch (e) {}
+      renderDrawerUI();
+    }
+
+    /* ----------------------------------------------------
+     * 3. RENDER MODULES GRID
+     * ---------------------------------------------------- */
+    function renderModules(filter = 'all') {
+      const grid = document.getElementById('modulesGrid');
+      if (!grid) return;
+      const filtered = filter === 'all'
+        ? MODULES
+        : MODULES.filter(m => m.category === filter);
+
+      grid.innerHTML = filtered.map(item => `
+        <div class="glass-panel glass-panel-hover rounded-3xl p-6 transition-all duration-300 flex flex-col justify-between group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[11px] font-bold px-2.5 py-1 rounded-md ${item.tagColor}">
+                ${item.tag}
+              </span>
+              <span class="text-xs font-bold text-slate-400">
+                模型精準度 <strong class="text-brand-cyan">${item.accuracy}</strong>
+              </span>
+            </div>
+
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-brand-cyan/20 text-brand-cyan flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                <i class="fa-solid ${item.icon}"></i>
+              </div>
+              <h3 class="text-base font-bold text-white group-hover:text-brand-cyan transition-colors">
+                ${item.name}
+              </h3>
+            </div>
+
+            <p class="text-xs text-brand-grayText leading-relaxed mb-4 line-clamp-3">
+              ${item.desc}
+            </p>
+
+            <div class="p-2.5 rounded-xl bg-brand-dark/60 border border-white/5 text-[11px] text-slate-300 mb-6 flex items-center gap-2">
+              <i class="fa-solid fa-circle-nodes text-brand-cyan"></i>
+              <span class="truncate">${item.spec}</span>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+            <div>
+              <span class="text-[11px] text-brand-grayText block">企業標準授權</span>
+              <span class="text-lg font-black text-white font-display">NT$ ${item.priceMonthly.toLocaleString()}</span>
+              <span class="text-[11px] text-slate-400">/ 月</span>
+            </div>
+            
+            <button 
+              type="button" 
+              onclick="window.addModuleToQuote('${item.id}')"
+              class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-brand-dark font-extrabold text-xs hover:brightness-110 active:scale-95 transition-all shadow-glow-cyan"
+            >
+              <i class="fa-solid fa-plus"></i>
+              <span>加入評估清單</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ----------------------------------------------------
+     * 4. QUOTATION / SOLUTION DRAWER LOGIC
+     * ---------------------------------------------------- */
+    function addModuleToQuote(moduleId) {
+      const target = MODULES.find(m => m.id === moduleId);
+      if (!target) return;
+
+      const existing = selectedModules.find(i => i.id === moduleId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        selectedModules.push({
+          id: target.id,
+          name: target.name,
+          priceMonthly: target.priceMonthly,
+          icon: target.icon,
+          quantity: 1
+        });
+      }
+
+      saveModules();
+      showToast(`已將「${target.name}」加入企業方案評估清單！`, 'success');
+
+      const badge = document.getElementById('drawerCountBadge');
+      badge.classList.add('scale-125');
+      setTimeout(() => badge.classList.remove('scale-125'), 200);
+    }
+
+    function updateModuleQty(moduleId, delta) {
+      const item = selectedModules.find(i => i.id === moduleId);
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        selectedModules = selectedModules.filter(i => i.id !== moduleId);
+      }
+      saveModules();
+    }
+
+    function removeModule(moduleId) {
+      selectedModules = selectedModules.filter(i => i.id !== moduleId);
+      saveModules();
+      showToast('已自評估清單移除該模組', 'info');
+    }
+
+    function setBillingCycle(cycle) {
+      billingCycle = cycle;
+      const monthlyBtn = document.getElementById('billingMonthlyBtn');
+      const annualBtn = document.getElementById('billingAnnualBtn');
+
+      if (cycle === 'annual') {
+        annualBtn.className = 'px-3 py-1 rounded-lg font-bold text-xs bg-brand-cyan text-brand-dark transition-all';
+        monthlyBtn.className = 'px-3 py-1 rounded-lg font-bold text-xs text-slate-300 hover:text-white transition-all';
+      } else {
+        monthlyBtn.className = 'px-3 py-1 rounded-lg font-bold text-xs bg-brand-cyan text-brand-dark transition-all';
+        annualBtn.className = 'px-3 py-1 rounded-lg font-bold text-xs text-slate-300 hover:text-white transition-all';
+      }
+      renderDrawerUI();
+    }
+
+    function renderDrawerUI() {
+      const count = selectedModules.reduce((acc, i) => acc + i.quantity, 0);
+      const monthlySubtotal = selectedModules.reduce((acc, i) => acc + (i.priceMonthly * i.quantity), 0);
+      
+      let finalTotal = monthlySubtotal;
+      let discountText = '標準月繳 (無折扣)';
+
+      if (billingCycle === 'annual') {
+        finalTotal = Math.round(monthlySubtotal * 12 * 0.85);
+        discountText = '年繳 85 折優惠 (現省 15% 年費)';
+      }
+
+      document.getElementById('drawerCountBadge').textContent = count;
+      document.getElementById('drawerItemCountText').textContent = `已選 ${count} 項核心分析模組`;
+
+      const listContainer = document.getElementById('drawerItemsList');
+      const emptyState = document.getElementById('drawerEmptyState');
+      const footerSummary = document.getElementById('drawerFooterSummary');
+
+      if (selectedModules.length === 0) {
+        listContainer.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        footerSummary.classList.add('hidden');
+        toggleQuoteFormView(false);
+      } else {
+        listContainer.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+        footerSummary.classList.remove('hidden');
+
+        listContainer.innerHTML = selectedModules.map(item => `
+          <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-brand-slate/60 border border-white/10">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-brand-cyan/20 text-brand-cyan flex items-center justify-center shrink-0">
+              <i class="fa-solid ${item.icon}"></i>
+            </div>
+            <div class="flex-grow min-w-0">
+              <h4 class="text-xs font-bold text-white truncate">${item.name}</h4>
+              <span class="text-xs font-extrabold text-brand-cyan">NT$ ${item.priceMonthly.toLocaleString()} / 月</span>
+              
+              <div class="flex items-center gap-2 mt-2">
+                <div class="flex items-center gap-1.5 bg-brand-dark border border-white/10 rounded-lg px-2 py-0.5">
+                  <button type="button" onclick="window.updateModuleQty('${item.id}', -1)" class="text-slate-400 hover:text-rose-400 font-bold px-1 text-xs">
+                    <i class="fa-solid fa-minus text-[10px]"></i>
+                  </button>
+                  <span class="text-xs font-bold w-4 text-center text-white">${item.quantity}</span>
+                  <button type="button" onclick="window.updateModuleQty('${item.id}', 1)" class="text-slate-400 hover:text-brand-cyan font-bold px-1 text-xs">
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                  </button>
+                </div>
+                <span class="text-[10px] text-brand-grayText">實例授權數</span>
+              </div>
+            </div>
+            <button type="button" onclick="window.removeModule('${item.id}')" class="text-slate-400 hover:text-rose-400 p-2 text-xs transition-colors" title="移除模組">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('drawerSubtotal').textContent = `NT$ ${monthlySubtotal.toLocaleString()} / 月`;
+      document.getElementById('drawerDiscountText').textContent = discountText;
+      document.getElementById('drawerTotal').textContent = billingCycle === 'annual'
+        ? `NT$ ${finalTotal.toLocaleString()} / 年`
+        : `NT$ ${finalTotal.toLocaleString()} / 月`;
+    }
+
+    function toggleDrawer(isOpen) {
+      const drawer = document.getElementById('solutionsDrawer');
+      const backdrop = document.getElementById('drawerBackdrop');
+
+      if (isOpen) {
+        backdrop.classList.remove('hidden');
+        setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+        drawer.classList.remove('translate-x-full');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('opacity-0');
+        setTimeout(() => backdrop.classList.add('hidden'), 300);
+      }
+    }
+
+    function toggleQuoteFormView(isQuoteForm) {
+      const form = document.getElementById('quoteFormContainer');
+      const list = document.getElementById('drawerItemsList');
+      const toQuoteBtn = document.getElementById('toQuoteFormBtn');
+
+      if (isQuoteForm) {
+        if (currentFirebaseUser) {
+          document.getElementById('qContact').value = currentFirebaseUser.displayName || '';
+          document.getElementById('qEmail').value = currentFirebaseUser.email || '';
+        }
+        form.classList.remove('hidden');
+        list.classList.add('hidden');
+        toQuoteBtn.classList.add('hidden');
+      } else {
+        form.classList.add('hidden');
+        list.classList.remove('hidden');
+        toQuoteBtn.classList.remove('hidden');
+      }
+    }
+
+    /* ----------------------------------------------------
+     * 5. FIREBASE AUTH & CRM CLOUD SYNC
+     * ---------------------------------------------------- */
+    function toggleAuthModal(isOpen, preferredTab = 'login') {
+      const modal = document.getElementById('authModal');
+      const alertBanner = document.getElementById('authAlertBanner');
+      if (alertBanner) alertBanner.classList.add('hidden');
+
+      if (isOpen) {
+        switchAuthTab(preferredTab);
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+
+    function switchAuthTab(tab) {
+      const loginTabBtn = document.getElementById('loginTabBtn');
+      const registerTabBtn = document.getElementById('registerTabBtn');
+      const loginForm = document.getElementById('loginFormContainer');
+      const registerForm = document.getElementById('registerFormContainer');
+      const alertBanner = document.getElementById('authAlertBanner');
+      if (alertBanner) alertBanner.classList.add('hidden');
+
+      if (tab === 'login') {
+        loginTabBtn.className = 'flex-1 py-3 text-xs sm:text-sm font-bold border-b-2 border-brand-cyan text-brand-cyan bg-brand-navy transition-all';
+        registerTabBtn.className = 'flex-1 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white transition-all';
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+      } else {
+        registerTabBtn.className = 'flex-1 py-3 text-xs sm:text-sm font-bold border-b-2 border-brand-cyan text-brand-cyan bg-brand-navy transition-all';
+        loginTabBtn.className = 'flex-1 py-3 text-xs sm:text-sm font-bold border-b-2 border-transparent text-slate-400 hover:text-white transition-all';
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+      }
+    }
+
+    function showAuthAlert(message) {
+      const alertBanner = document.getElementById('authAlertBanner');
+      const alertText = document.getElementById('authAlertText');
+      if (alertBanner && alertText) {
+        alertText.textContent = message;
+        alertBanner.classList.remove('hidden');
+      }
+    }
+
+    // Auto sync user profile to Firestore `users` collection (CRM)
+    async function syncUserToFirestoreCRM(user, extra = {}) {
+      if (!db || !user) return;
+      try {
+        const userDocRef = doc(db, "users", user.uid);
+        const userData = {
+          uid: user.uid,
+          name: extra.name || user.displayName || user.email.split('@')[0],
+          email: user.email,
+          photoURL: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || user.email)}&background=00F2FE&color=080D1A`,
+          company: extra.company || "萬能企管產學合作夥伴",
+          title: extra.title || "企業主管",
+          lastLoginAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        };
+        // Merge with existing CRM record
+        await setDoc(userDocRef, userData, { merge: true });
+        console.log("Firestore users collection updated for UID:", user.uid);
+      } catch (err) {
+        console.warn("Firestore CRM write warning:", err);
+      }
+    }
+
+    // Google Sign-In with Popup
+    async function handleGoogleSignIn() {
+      if (!auth) {
+        showAuthAlert("Firebase 服務尚未就緒，請檢查網路連線。");
+        return;
+      }
+      const googleBtn = document.getElementById('googleLoginBtn');
+      const originalText = googleBtn.innerHTML;
+      googleBtn.disabled = true;
+      googleBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Google 驗證中...</span>`;
+
+      try {
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        
+        await syncUserToFirestoreCRM(user);
+        toggleAuthModal(false);
+        showToast(`🎉 歡迎回來！${user.displayName || user.email} (已同步 Firestore CRM)`, 'success');
+      } catch (error) {
+        console.error("Google Auth Error:", error);
+        let errorMsg = "Google 登入失敗，請稍後重試。";
+        if (error.code === 'auth/popup-closed-by-user') {
+          errorMsg = "登入視窗已關閉，請重新點擊登入。";
+        } else if (error.code === 'auth/unauthorized-domain') {
+          errorMsg = "提示：目前網域尚未在 Firebase Console 授權名單中。本地測試可使用上方 Email 帳密登入，或將當前網域加入 Firebase 授權網域。";
+        } else if (error.message) {
+          errorMsg = error.message;
+        }
+        showAuthAlert(errorMsg);
+      } finally {
+        googleBtn.disabled = false;
+        googleBtn.innerHTML = originalText;
+      }
+    }
+
+    // Email/Password Login
+    async function handleEmailLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const submitBtn = document.getElementById('loginSubmitBtn');
+
+      if (!email || !password) {
+        showAuthAlert("請完整輸入電子郵件與密碼。");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>登入驗證中...</span>`;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await syncUserToFirestoreCRM(user);
+        toggleAuthModal(false);
+        showToast(`歡迎回來，${user.displayName || user.email}！`, 'success');
+      } catch (error) {
+        console.error("Email Login Error:", error);
+        let errorMsg = "登入失敗，請檢查帳號密碼。";
+        if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+          errorMsg = "密碼不正確或帳號不存在，請重新輸入。";
+        } else if (error.code === 'auth/user-not-found') {
+          errorMsg = "此帳號尚未註冊，請切換至「註冊」標籤建立帳號。";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "請輸入有效的電子郵件格式。";
+        } else if (error.code === 'auth/too-many-requests') {
+          errorMsg = "登入嘗試次數過多，帳號已暫時鎖定，請稍候重試。";
+        }
+        showAuthAlert(errorMsg);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>登入帳號</span>`;
+      }
+    }
+
+    // Email/Password Register
+    async function handleEmailRegister(e) {
+      e.preventDefault();
+      const company = document.getElementById('regCompany').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const name = document.getElementById('regName').value.trim();
+      const title = document.getElementById('regTitle').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const submitBtn = document.getElementById('regSubmitBtn');
+
+      if (!email || !password || !name) {
+        showAuthAlert("請填寫所有必填欄位。");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>建立企業帳號中...</span>`;
+
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Update Auth Profile Display Name
+        await updateProfile(user, {
+          displayName: name
+        });
+
+        // Write CRM data into Firestore `users`
+        await syncUserToFirestoreCRM(user, { company, name, title });
+
+        toggleAuthModal(false);
+        showToast(`🎉 註冊成功！歡迎 ${name} 加入萬能企管 OmniInsight 平台`, 'success');
+      } catch (error) {
+        console.error("Email Register Error:", error);
+        let errorMsg = "註冊失敗，請稍後重試。";
+        if (error.code === 'auth/email-already-in-use') {
+          errorMsg = "此 Email 已被註冊，請直接點選「會員登入」。";
+        } else if (error.code === 'auth/weak-password') {
+          errorMsg = "密碼強度不足，長度請至少包含 6 個字元。";
+        } else if (error.code === 'auth/invalid-email') {
+          errorMsg = "請輸入有效的電子郵件地址。";
+        }
+        showAuthAlert(errorMsg);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<span>註冊並寫入 Firestore CRM 資料庫</span>`;
+      }
+    }
+
+    // Firebase Sign Out
+    async function firebaseSignOut() {
+      if (!auth) return;
+      try {
+        await signOut(auth);
+        document.getElementById('userDropdown').classList.add('hidden');
+        showToast("已安全登出會員帳號", "info");
+      } catch (e) {
+        console.error("SignOut error:", e);
+      }
+    }
+
+    // Firebase Auth State Listener (onAuthStateChanged)
+    if (auth) {
+      onAuthStateChanged(auth, (user) => {
+        currentFirebaseUser = user;
+        const guestBtn = document.getElementById('authModalBtn');
+        const userPillBtn = document.getElementById('userPillBtn');
+        const userAvatarImg = document.getElementById('userAvatarImg');
+        const userDisplayName = document.getElementById('userDisplayName');
+        const userDropdownName = document.getElementById('userDropdownName');
+        const userDropdownEmail = document.getElementById('userDropdownEmail');
+
+        if (user) {
+          // Logged in
+          guestBtn.classList.add('hidden');
+          userPillBtn.classList.remove('hidden');
+
+          const displayName = user.displayName || user.email.split('@')[0];
+          const photo = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=00F2FE&color=080D1A`;
+          
+          userAvatarImg.src = photo;
+          userDisplayName.textContent = displayName;
+          userDropdownName.textContent = displayName;
+          userDropdownEmail.textContent = user.email;
+
+          // Auto-fill consultation & quote form inputs
+          const cContact = document.getElementById('cContactName');
+          if (cContact && !cContact.value) cContact.value = displayName;
+          const qContact = document.getElementById('qContact');
+          if (qContact && !qContact.value) qContact.value = displayName;
+          const qEmail = document.getElementById('qEmail');
+          if (qEmail && !qEmail.value) qEmail.value = user.email;
+
+        } else {
+          // Logged out
+          guestBtn.classList.remove('hidden');
+          userPillBtn.classList.add('hidden');
+          document.getElementById('userDropdown').classList.add('hidden');
+        }
+      });
+    }
+
+    /* ----------------------------------------------------
+     * 6. FIRESTORE ORDER SUBMISSION (orders 集合)
+     * ---------------------------------------------------- */
+    async function handleOrderSubmit(e) {
+      e.preventDefault();
+
+      if (selectedModules.length === 0) {
+        showToast("您的評估清單目前是空的，請先挑選模組！", "warning");
+        return;
+      }
+
+      const comp = document.getElementById('qCompanyName').value.trim();
+      const taxId = document.getElementById('qTaxId').value.trim();
+      const contact = document.getElementById('qContact').value.trim();
+      const email = document.getElementById('qEmail').value.trim();
+      const timeline = document.getElementById('qTimeline').value;
+      const notes = document.getElementById('qNotes').value.trim() || '無特別備註';
+
+      const monthlySubtotal = selectedModules.reduce((acc, i) => acc + (i.priceMonthly * i.quantity), 0);
+      const finalTotal = billingCycle === 'annual' 
+        ? Math.round(monthlySubtotal * 12 * 0.85)
+        : monthlySubtotal;
+      
+      const quoteId = `VNU-ORD-${new Date().getFullYear()}-${Math.floor(100000 + Math.random() * 900000)}`;
+      const submitBtn = document.getElementById('orderSubmitBtn');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>正在寫入 Firebase Firestore...</span>`;
+
+      let firestoreDocId = "Local-Backup";
+      try {
+        if (db) {
+          // Write directly to Firestore `orders` collection
+          const docRef = await addDoc(collection(db, "orders"), {
+            orderId: quoteId,
+            userId: currentFirebaseUser ? currentFirebaseUser.uid : "anonymous",
+            userEmail: currentFirebaseUser ? currentFirebaseUser.email : email,
+            companyName: comp,
+            taxId: taxId,
+            contactName: contact,
+            email: email,
+            timeline: timeline,
+            notes: notes,
+            items: selectedModules,
+            billingCycle: billingCycle,
+            subtotal: monthlySubtotal,
+            totalAmount: finalTotal,
+            currency: "TWD",
+            status: "pending_review",
+            createdAt: serverTimestamp()
+          });
+          firestoreDocId = docRef.id;
+          console.log("Order written to Firestore orders collection, Doc ID:", firestoreDocId);
+        }
+      } catch (err) {
+        console.error("Firestore order write failed:", err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> <span>確認送出訂單 (即時寫入雲端 Firestore)</span>`;
+      }
+
+      // Display Success Modal
+      showSuccessModal({
+        title: '🎉 訂購成功！我們將盡速為您安排',
+        subtitle: `訂單資料已成功寫入 Google Firebase 雲端資料庫 (Doc ID: ${firestoreDocId.slice(0, 10)}...)，專屬產學商務顧問將主動聯繫您。`,
+        detailsHtml: `
+          <div class="flex justify-between"><span class="text-brand-grayText">訂單編號：</span><span class="font-bold text-brand-cyan">${quoteId}</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">Firestore 文件 ID：</span><span class="font-mono text-emerald-400 truncate max-w-[180px]">${firestoreDocId}</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">客戶全稱：</span><span class="text-white font-semibold">${comp} (統編: ${taxId})</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">聯絡窗口：</span><span class="text-slate-300">${contact} · ${email}</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">訂購品項數：</span><span class="text-white">${selectedModules.length} 項核心模組</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">計費週期：</span><span class="text-brand-emerald font-bold">${billingCycle === 'annual' ? '年繳專案 (享 85 折)' : '標準月繳'}</span></div>
+          <div class="flex justify-between pt-2 border-t border-white/10"><span class="text-brand-grayText">應付總額：</span><span class="text-sm font-black text-brand-cyan">NT$ ${finalTotal.toLocaleString()} ${billingCycle === 'annual' ? '/年' : '/月'}</span></div>
+        `
+      });
+
+      // Clear Shopping Cart Drawer
+      selectedModules = [];
+      saveModules();
+      toggleQuoteFormView(false);
+      toggleDrawer(false);
+      showToast("訂單已成功寫入 Firebase 資料庫！", "success");
+    }
+
+    /* ----------------------------------------------------
+     * 7. FIRESTORE CONSULTATION SUBMISSION (appointments 集合)
+     * ---------------------------------------------------- */
+    async function handleConsultationSubmit(e) {
+      e.preventDefault();
+
+      const company = document.getElementById('cCompanyName').value.trim();
+      const contact = document.getElementById('cContactName').value.trim();
+      const phone = document.getElementById('cPhone').value.trim();
+      const size = document.getElementById('cCompanySize').value;
+      const plan = document.getElementById('cPlan').value;
+      const date = document.getElementById('cDate').value;
+      const slot = document.getElementById('cTimeSlot').value;
+      const notes = document.getElementById('cNotes').value.trim() || '無特別痛點備註';
+
+      const bookingId = `VNU-ADV-${Date.now().toString().slice(-6)}`;
+      const submitBtn = document.getElementById('consultationSubmitBtn');
+
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>資料上傳雲端資料庫中...</span>`;
+
+      let appointmentDocId = "Cloud-Pending";
+      try {
+        if (db) {
+          // Write to Firestore `appointments` collection
+          const docRef = await addDoc(collection(db, "appointments"), {
+            appointmentId: bookingId,
+            userId: currentFirebaseUser ? currentFirebaseUser.uid : "anonymous",
+            userEmail: currentFirebaseUser ? currentFirebaseUser.email : "",
+            companyName: company,
+            contactName: contact,
+            phone: phone,
+            companySize: size,
+            plan: plan,
+            date: date,
+            timeSlot: slot,
+            notes: notes,
+            status: "scheduled",
+            createdAt: serverTimestamp()
+          });
+          appointmentDocId = docRef.id;
+          console.log("Appointment written to Firestore appointments collection, Doc ID:", appointmentDocId);
+        }
+      } catch (err) {
+        console.error("Firestore appointment write failed:", err);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span>送出顧問諮詢預約單 (即時寫入雲端)</span>`;
+      }
+
+      showSuccessModal({
+        title: '🤝 萬能企管產學顧問預約已確認！',
+        subtitle: `您的預約已成功寫入 Firestore \`appointments\` 集合 (Doc ID: ${appointmentDocId.slice(0, 10)}...)，萬能企管專屬 AI 解決方案架構師將於 4 工作小時內致電確認。`,
+        detailsHtml: `
+          <div class="flex justify-between"><span class="text-brand-grayText">預約編號：</span><span class="font-bold text-brand-cyan">${bookingId}</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">Firestore 文件 ID：</span><span class="font-mono text-emerald-400 truncate max-w-[180px]">${appointmentDocId}</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">企業名稱：</span><span class="font-semibold text-white">${company} (${size})</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">聯絡人員：</span><span class="text-slate-300">${contact} · ${phone}</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">諮詢方案：</span><span class="font-bold text-amber-400">${plan}</span></div>
+          <div class="flex justify-between"><span class="text-brand-grayText">排定時段：</span><span class="text-white font-semibold">${date} ${slot}</span></div>
+        `
+      });
+
+      showToast("預約資料已成功寫入 Firebase 雲端！", "success");
+    }
+
+    function selectConsultationPlan(planName) {
+      const select = document.getElementById('cPlan');
+      if (select) select.value = planName;
+      document.getElementById('consultation').scrollIntoView({ behavior: 'smooth' });
+      showToast(`已為您快速代入「${planName.split(' ')[0]}」！`, 'info');
+    }
+
+    /* ----------------------------------------------------
+     * 8. SUCCESS MODAL & TOAST SYSTEM
+     * ---------------------------------------------------- */
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      if (!container) return;
+      const toast = document.createElement('div');
+      
+      let icon = 'fa-info-circle text-blue-400';
+      if (type === 'success') icon = 'fa-circle-check text-brand-cyan';
+      if (type === 'warning') icon = 'fa-triangle-exclamation text-amber-400';
+
+      toast.className = 'glass-panel bg-brand-navy text-white px-4 py-3 rounded-2xl shadow-glow-cyan flex items-center gap-3 text-xs sm:text-sm font-semibold border border-brand-cyan/30 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto';
+      toast.innerHTML = `
+        <i class="fa-solid ${icon} text-base"></i>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    function showSuccessModal({ title, subtitle, detailsHtml }) {
+      document.getElementById('successTitle').textContent = title;
+      document.getElementById('successSubtitle').textContent = subtitle;
+      document.getElementById('successDetailsCard').innerHTML = detailsHtml;
+      document.getElementById('successModal').classList.remove('hidden');
+    }
+
+    function closeSuccessModal() {
+      document.getElementById('successModal').classList.add('hidden');
+    }
+
+    /* ----------------------------------------------------
+     * 9. INITIALIZE DYNAMIC CHART.JS DASHBOARD
+     * ---------------------------------------------------- */
+    function initHeroChart() {
+      const ctx = document.getElementById('heroDashboardChart');
+      if (!ctx) return;
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['1月', '2月', '3月', '4月', '5月', '6月(AI預測)', '7月(AI預測)', '8月(AI預測)'],
+          datasets: [
+            {
+              label: '實際營運營收 (百萬)',
+              data: [120, 135, 142, 138, 155, null, null, null],
+              borderColor: '#60A5FA',
+              backgroundColor: 'rgba(96, 165, 250, 0.1)',
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 4,
+              pointBackgroundColor: '#60A5FA'
+            },
+            {
+              label: '萬能企管 AI 預測趨勢線',
+              data: [null, null, null, null, 155, 168, 184, 196],
+              borderColor: '#00F2FE',
+              backgroundColor: 'rgba(0, 242, 254, 0.15)',
+              borderWidth: 3,
+              borderDash: [5, 5],
+              tension: 0.3,
+              fill: true,
+              pointRadius: 5,
+              pointBackgroundColor: '#00F2FE'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: '#94A3B8',
+                font: { size: 10, family: 'sans-serif' }
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(11, 19, 43, 0.9)',
+              titleColor: '#00F2FE',
+              borderColor: 'rgba(0, 242, 254, 0.3)',
+              borderWidth: 1
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#94A3B8', font: { size: 10 } }
+            },
+            y: {
+              grid: { color: 'rgba(255, 255, 255, 0.05)' },
+              ticks: { color: '#94A3B8', font: { size: 10 } }
+            }
+          }
+        }
+      });
+    }
+
+    /* ----------------------------------------------------
+     * 10. EXPOSE GLOBAL FUNCTIONS TO WINDOW FOR INLINE HTML HANDLERS
+     * ---------------------------------------------------- */
+    window.toggleAuthModal = toggleAuthModal;
+    window.switchAuthTab = switchAuthTab;
+    window.handleGoogleSignIn = handleGoogleSignIn;
+    window.firebaseSignOut = firebaseSignOut;
+    window.toggleDrawer = toggleDrawer;
+    window.toggleQuoteFormView = toggleQuoteFormView;
+    window.addModuleToQuote = addModuleToQuote;
+    window.updateModuleQty = updateModuleQty;
+    window.removeModule = removeModule;
+    window.setBillingCycle = setBillingCycle;
+    window.selectConsultationPlan = selectConsultationPlan;
+    window.closeSuccessModal = closeSuccessModal;
+    window.showToast = showToast;
+
+    /* ----------------------------------------------------
+     * 11. ATTACH EVENT LISTENERS ON DOM CONTENT LOADED
+     * ---------------------------------------------------- */
+    document.addEventListener('DOMContentLoaded', () => {
+      loadLocalCart();
+      renderModules('all');
+      renderDrawerUI();
+      initHeroChart();
+
+      // Set default appointment date to 3 days later
+      const targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + 3);
+      const yyyy = targetDate.getFullYear();
+      const mm = String(targetDate.getMonth() + 1).padStart(2, '0');
+      const dd = String(targetDate.getDate()).padStart(2, '0');
+      const datePicker = document.getElementById('cDate');
+      if (datePicker) {
+        datePicker.value = `${yyyy}-${mm}-${dd}`;
+        datePicker.min = `${yyyy}-${mm}-${dd}`;
+      }
+
+      // Drawer open/close triggers
+      document.getElementById('drawerToggleBtn').addEventListener('click', () => toggleDrawer(true));
+      document.getElementById('closeDrawerBtn').addEventListener('click', () => toggleDrawer(false));
+      document.getElementById('drawerBackdrop').addEventListener('click', () => toggleDrawer(false));
+
+      // User pill button toggle dropdown
+      const userPillBtn = document.getElementById('userPillBtn');
+      const userDropdown = document.getElementById('userDropdown');
+      if (userPillBtn && userDropdown) {
+        userPillBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          userDropdown.classList.toggle('hidden');
+        });
+        document.addEventListener('click', (e) => {
+          if (!userDropdown.contains(e.target) && !userPillBtn.contains(e.target)) {
+            userDropdown.classList.add('hidden');
+          }
+        });
+      }
+
+      // Mobile Menu
+      const mobileBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+      }
+
+      // Filter tabs
+      const filterBtns = document.querySelectorAll('#moduleFilterBar .filter-btn');
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.className = 'filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white/5 border border-white/10 text-slate-300 hover:text-brand-cyan hover:border-brand-cyan/40 transition-all';
+          });
+          btn.className = 'filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-brand-cyan text-brand-dark transition-all shadow-glow-cyan';
+          renderModules(btn.dataset.category);
+        });
+      });
+
+      // Email Auth Form Listeners
+      const emailLoginForm = document.getElementById('emailLoginForm');
+      if (emailLoginForm) emailLoginForm.addEventListener('submit', handleEmailLogin);
+
+      const emailRegisterForm = document.getElementById('emailRegisterForm');
+      if (emailRegisterForm) emailRegisterForm.addEventListener('submit', handleEmailRegister);
+
+      // Quote / Order Submit to Firestore orders collection
+      const quoteSubmitForm = document.getElementById('quoteSubmitForm');
+      if (quoteSubmitForm) quoteSubmitForm.addEventListener('submit', handleOrderSubmit);
+
+      // Consultation Booking Submit to Firestore appointments collection
+      const consultationForm = document.getElementById('consultationForm');
+      if (consultationForm) consultationForm.addEventListener('submit', handleConsultationSubmit);
+    });
+  </script>
+
+</body>
+</html>
